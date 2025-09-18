@@ -7,7 +7,7 @@
   - 建立基本目錄結構 (app/, content/, public/)
   - _Requirements: 1.1, 7.1_
 
-- [ ] 2. 設定內容管理和資料模型
+- [x] 2. 設定內容管理和資料模型
 
   - 配置 @nuxt/content 模組選項 (Markdown 解析、語法高亮)
   - 定義 BlogArticle、Category、Tag 等 TypeScript 介面

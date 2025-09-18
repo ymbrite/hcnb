@@ -20,13 +20,14 @@ export default defineNuxtConfig({
         default: 'github-light',
         dark: 'github-dark',
       },
-      langs: ['javascript', 'typescript', 'vue', 'css', 'html', 'bash', 'json', 'yaml'],
+      langs: ['javascript', 'typescript', 'vue', 'css', 'html', 'bash', 'json', 'yaml', 'markdown'],
     },
     markdown: {
       toc: {
         depth: 3,
         searchDepth: 3,
       },
+      anchorLinks: true,
     },
   },
 

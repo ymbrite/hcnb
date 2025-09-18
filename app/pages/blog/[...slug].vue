@@ -58,7 +58,7 @@ const route = useRoute()
 const slug = route.params.slug as string[]
 
 // 查詢文章內容
-const { data, pending, error } = await queryContent('/blog', ...slug).findOne()
+const { data, pending, error } = await queryContent('blog', ...slug).findOne()
 
 // 格式化日期
 const formatDate = (dateString: string) => {
