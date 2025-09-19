@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# 網站地圖
+Sitemap: https://your-blog-site.com/sitemap.xml
+
+# 不允許爬取的路徑
+Disallow: /api/
+Disallow: /_nuxt/
+Disallow: /admin/
+
+# 爬取延遲 (秒)
+Crawl-delay: 1

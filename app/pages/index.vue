@@ -184,9 +184,16 @@ const topTags = computed(() => {
     .slice(0, 8)
 })
 
-// 設定頁面 meta
-useSeoMeta({
-  title: 'Markdown 部落格 - 首頁',
-  description: '使用 Nuxt v4 建立的現代化 Markdown 部落格網站，分享技術文章和生活感悟'
-})
+// 設定 SEO meta
+const { setHomeMeta, setLanguage, setCanonicalUrl, setArticleListSchema } = useSEO()
+
+// 設定首頁 SEO
+setHomeMeta()
+setLanguage('zh-TW')
+setCanonicalUrl('/')
+
+// 設定文章列表結構化資料
+if (allArticles.value) {
+  setArticleListSchema(allArticles.value.slice(0, 10), 'blog')
+}
 </script>

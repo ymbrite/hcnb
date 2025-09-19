@@ -212,6 +212,101 @@ export const useSEO = () => {
     return cleanText.substring(0, maxLength - 3).trim() + '...'
   }
 
+  /**
+   * 設定搜尋頁面的 SEO meta
+   */
+  const setSearchMeta = (query: string, resultCount: number) => {
+    const title = query ? `搜尋結果：${query}` : '搜尋'
+    const description = query
+      ? `搜尋「${query}」的結果，找到 ${resultCount} 篇相關文章`
+      : '搜尋部落格文章，找到您需要的內容'
+
+    setPageMeta(title, description, query ? `/search?q=${encodeURIComponent(query)}` : '/search')
+  }
+
+  /**
+   * 設定 404 頁面的 SEO meta
+   */
+  const setNotFoundMeta = () => {
+    const title = '頁面未找到'
+    const description = '抱歉，您要找的頁面不存在。請檢查網址或返回首頁瀏覽其他內容。'
+
+    setPageMeta(title, description, '/404')
+  }
+
+  /**
+   * 生成文章列表的結構化資料
+   */
+  const setArticleListSchema = (articles: BlogArticle[], listType: 'blog' | 'category' | 'tag' = 'blog') => {
+    useHead({
+      script: [
+        {
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            name: listType === 'blog' ? '部落格文章' : `${listType} 文章列表`,
+            description: `${listType} 相關的文章列表`,
+            numberOfItems: articles.length,
+            itemListElement: articles.map((article, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              item: {
+                '@type': 'BlogPosting',
+                '@id': `${siteUrl}${article._path}`,
+                headline: article.title,
+                description: article.description,
+                datePublished: article.publishedAt,
+                author: {
+                  '@type': 'Person',
+                  name: article.author || '匿名作者',
+                },
+                image: article.image ? `${siteUrl}${article.image}` : undefined,
+              },
+            })),
+          }),
+        },
+      ],
+    })
+  }
+
+  /**
+   * 設定 canonical URL
+   */
+  const setCanonicalUrl = (path: string) => {
+    useHead({
+      link: [
+        {
+          rel: 'canonical',
+          href: `${siteUrl}${path}`,
+        },
+      ],
+    })
+  }
+
+  /**
+   * 設定語言和地區
+   */
+  const setLanguage = (lang: string = 'zh-TW') => {
+    useHead({
+      htmlAttrs: {
+        lang,
+      },
+    })
+  }
+
+  /**
+   * 生成 Open Graph 圖片 URL
+   */
+  const generateOgImage = (title: string, category?: string): string => {
+    const params = new URLSearchParams({
+      title,
+      ...(category && { category }),
+    })
+
+    return `${siteUrl}/api/og?${params.toString()}`
+  }
+
   return {
     setArticleMeta,
     setPageMeta,
@@ -219,8 +314,14 @@ export const useSEO = () => {
     setBlogListMeta,
     setCategoryMeta,
     setTagMeta,
+    setSearchMeta,
+    setNotFoundMeta,
     setBreadcrumbSchema,
+    setArticleListSchema,
+    setCanonicalUrl,
+    setLanguage,
     generateKeywords,
     sanitizeDescription,
+    generateOgImage,
   }
 }

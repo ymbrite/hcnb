@@ -76,13 +76,16 @@
       <div class="flex-1 min-w-0">
         <!-- 文章封面圖 -->
         <div v-if="article.image" class="mb-8">
-          <div class="relative bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
+          <div class="relative bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden aspect-video">
             <NuxtImg
               :src="article.image"
               :alt="article.title"
-              class="w-full rounded-lg shadow-lg"
+              class="w-full h-full object-cover rounded-lg shadow-lg"
               loading="lazy"
-              sizes="sm:100vw md:100vw lg:75vw"
+              sizes="sm:100vw md:100vw lg:75vw xl:60vw"
+              format="webp"
+              quality="85"
+              placeholder
               @error="handleImageError"
             />
             <!-- 圖片載入失敗時的佔位圖 -->

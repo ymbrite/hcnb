@@ -50,4 +50,87 @@ export default defineNuxtConfig({
 
   // CSS 配置
   css: ['~/assets/css/main.css'],
+
+  // SEO 和 meta 配置
+  app: {
+    head: {
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+      title: 'Markdown Blog Site',
+      meta: [
+        { name: 'description', content: '一個基於 Nuxt v4 和 Markdown 的現代部落格網站' },
+        { name: 'keywords', content: 'blog, markdown, nuxt, vue, typescript' },
+        { name: 'author', content: 'Blog Author' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:site_name', content: 'Markdown Blog Site' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:site', content: '@blogsite' },
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'canonical', href: 'https://your-blog-site.com' },
+        { rel: 'manifest', href: '/manifest.json' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+        { rel: 'alternate', type: 'application/rss+xml', title: 'RSS Feed', href: '/rss.xml' },
+      ],
+    },
+  },
+
+  // 圖片優化配置
+  image: {
+    quality: 80,
+    format: ['webp', 'avif', 'jpg', 'png'],
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+    },
+    densities: [1, 2],
+    presets: {
+      avatar: {
+        modifiers: {
+          format: 'webp',
+          width: 64,
+          height: 64,
+          quality: 90,
+        },
+      },
+      thumbnail: {
+        modifiers: {
+          format: 'webp',
+          width: 300,
+          height: 200,
+          quality: 80,
+        },
+      },
+      hero: {
+        modifiers: {
+          format: 'webp',
+          width: 1200,
+          height: 630,
+          quality: 85,
+        },
+      },
+    },
+  },
+
+  // 網站地圖和 RSS 配置
+  nitro: {
+    prerender: {
+      routes: [],
+    },
+    routeRules: {
+      '/sitemap.xml': {
+        proxy: '/api/sitemap.xml',
+        headers: { 'Content-Type': 'application/xml' },
+      },
+      '/rss.xml': {
+        proxy: '/api/rss.xml',
+        headers: { 'Content-Type': 'application/rss+xml' },
+      },
+    },
+  },
 })

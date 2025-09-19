@@ -60,11 +60,37 @@ const { data, pending, error } = await useAsyncData(`blog-${slug.join('-')}`, as
 
 // 不再需要 formatDate，因為組件內部會處理
 
-// 設定頁面 meta
+// 設定 SEO meta
+const { setArticleMeta, setCanonicalUrl, setLanguage, setBreadcrumbSchema } = useSEO()
+
 if (data.value) {
-  useSeoMeta({
-    title: `${data.value.title} - Markdown 部落格`,
-    description: data.value.description,
+  // 設定文章 SEO meta
+  setArticleMeta(data.value)
+  
+  // 設定 canonical URL
+  setCanonicalUrl(data.value._path)
+  
+  // 設定語言
+  setLanguage('zh-TW')
+  
+  // 設定麵包屑
+  const breadcrumbs = [
+    { name: '首頁', url: '/' },
+    { name: '部落格', url: '/blog' },
+  ]
+  
+  if (data.value.category) {
+    breadcrumbs.push({
+      name: data.value.category,
+      url: `/blog/category/${slugify(data.value.category)}`,
+    })
+  }
+  
+  breadcrumbs.push({
+    name: data.value.title,
+    url: data.value._path,
   })
+  
+  setBreadcrumbSchema(breadcrumbs)
 }
 </script>

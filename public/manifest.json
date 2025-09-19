@@ -1,0 +1,26 @@
+{
+  "name": "Markdown Blog Site",
+  "short_name": "Blog",
+  "description": "一個基於 Nuxt v4 和 Markdown 的現代部落格網站",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait-primary",
+  "categories": ["blog", "technology", "education"],
+  "lang": "zh-TW",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

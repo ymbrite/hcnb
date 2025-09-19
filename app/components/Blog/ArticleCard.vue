@@ -10,7 +10,11 @@
         :alt="article.title"
         class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
         loading="lazy"
-        sizes="sm:100vw md:50vw lg:33vw"
+        sizes="sm:100vw md:50vw lg:33vw xl:25vw"
+        format="webp"
+        quality="80"
+        placeholder
+        preset="thumbnail"
         @error="handleImageError"
       />
       <!-- 預設 SVG 佔位圖 -->

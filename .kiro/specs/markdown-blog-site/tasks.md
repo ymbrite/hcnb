@@ -51,7 +51,7 @@
   - 實作搜尋結果頁面和高亮顯示
   - _Requirements: 2.1, 4.1, 4.2_
 
-- [ ] 8. SEO 優化和圖片處理
+- [x] 8. SEO 優化和圖片處理
 
   - 配置動態 meta 標籤和 Open Graph
   - 實作 @nuxt/image 圖片優化和響應式圖片
