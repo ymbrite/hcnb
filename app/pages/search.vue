@@ -36,25 +36,25 @@
     </div>
 
     <!-- 載入狀態 -->
-    <div v-if="pending" class="space-y-6">
-      <div v-for="i in 3" :key="i" class="animate-pulse">
-        <div class="bg-gray-200 dark:bg-gray-700 rounded-lg h-32"></div>
-      </div>
-    </div>
+    <UISkeletonLoader 
+      v-if="pending" 
+      type="search-results" 
+      :count="3" 
+    />
 
     <!-- 錯誤狀態 -->
-    <div v-else-if="error" class="text-center py-12">
-      <div class="text-red-600 dark:text-red-400 mb-4">
-        <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-        </svg>
-        <h3 class="text-xl font-semibold mb-2">搜尋時發生錯誤</h3>
-        <p class="text-gray-600 dark:text-gray-400">{{ error.message || '請稍後再試' }}</p>
-      </div>
-      <button @click="refresh()" class="btn-primary">
-        重新搜尋
-      </button>
-    </div>
+    <UIEmptyState 
+      v-else-if="error" 
+      type="error" 
+      :title="'搜尋時發生錯誤'"
+      :description="error.message || '請稍後再試'"
+    >
+      <template #actions>
+        <button @click="refresh()" class="btn-primary">
+          重新搜尋
+        </button>
+      </template>
+    </UIEmptyState>
 
     <!-- 搜尋結果 -->
     <div v-else-if="searchResults && searchResults.results.length > 0">
@@ -145,40 +145,40 @@
     </div>
 
     <!-- 無搜尋結果 -->
-    <div v-else-if="searchQuery" class="text-center py-12">
-      <div class="text-gray-500 dark:text-gray-400">
-        <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-        <h3 class="text-xl font-semibold mb-2">沒有找到相關文章</h3>
-        <p class="text-gray-600 dark:text-gray-400 mb-4">
-          嘗試使用不同的關鍵字或瀏覽我們的文章分類
-        </p>
-        <div class="flex justify-center space-x-4">
-          <NuxtLink to="/blog" class="btn-secondary">
+    <UIEmptyState 
+      v-else-if="searchQuery" 
+      type="no-search-results"
+      :title="`沒有找到「${searchQuery}」的相關結果`"
+      :description="'請嘗試使用不同的關鍵字搜尋，或者瀏覽所有文章來發現有趣的內容。'"
+    >
+      <template #actions>
+        <div class="space-x-4">
+          <button @click="clearSearch" class="btn-secondary">
+            清除搜尋
+          </button>
+          <NuxtLink to="/blog" class="btn-primary">
             瀏覽所有文章
           </NuxtLink>
-          <NuxtLink to="/blog/category" class="btn-secondary">
-            瀏覽分類
-          </NuxtLink>
         </div>
-      </div>
-    </div>
+      </template>
+    </UIEmptyState>
 
-    <!-- 初始狀態 -->
-    <div v-else class="text-center py-12">
-      <div class="text-gray-500 dark:text-gray-400">
-        <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-        <h3 class="text-xl font-semibold mb-2">開始搜尋</h3>
-        <p class="text-gray-600 dark:text-gray-400">
-          輸入關鍵字來搜尋文章
-        </p>
-      </div>
-    </div>
+    <!-- 預設狀態 -->
+    <UIEmptyState 
+      v-else 
+      type="custom"
+      title="開始搜尋"
+      description="在上方搜尋框中輸入關鍵字來搜尋文章。"
+    >
+      <template #actions>
+        <NuxtLink to="/blog" class="btn-primary">
+          瀏覽所有文章
+        </NuxtLink>
+      </template>
+    </UIEmptyState>
   </div>
 </template>
+
 <script setup lang="ts">
 // 使用 default 佈局
 definePageMeta({

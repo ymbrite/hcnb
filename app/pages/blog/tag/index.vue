@@ -11,23 +11,21 @@
     </div>
 
     <!-- 載入狀態 -->
-    <div v-if="pending" class="text-center py-12">
-      <div class="animate-pulse">
-        <div class="bg-gray-200 dark:bg-gray-700 rounded-lg h-64 mb-4"></div>
-        <div class="bg-gray-200 dark:bg-gray-700 rounded h-4 w-1/2 mx-auto"></div>
-      </div>
-    </div>
+    <UISkeletonLoader 
+      v-if="pending" 
+      type="custom" 
+      container-class="text-center py-12"
+      width="w-full"
+      height="lg"
+    />
 
     <!-- 錯誤狀態 -->
-    <div v-else-if="error" class="text-center py-12">
-      <div class="text-red-600 dark:text-red-400 mb-4">
-        <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-        </svg>
-        <h3 class="text-xl font-semibold mb-2">載入標籤時發生錯誤</h3>
-        <p class="text-gray-600 dark:text-gray-400">{{ error.message || '請稍後再試' }}</p>
-      </div>
-    </div>
+    <UIEmptyState 
+      v-else-if="error" 
+      type="error" 
+      :title="'載入標籤時發生錯誤'"
+      :description="error.message || '請稍後再試'"
+    />
 
     <!-- 標籤雲 -->
     <div v-else-if="tags && tags.length > 0">
@@ -40,18 +38,13 @@
 
       <!-- 標籤雲 -->
       <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-8 mb-8">
-        <div class="flex flex-wrap gap-3 justify-center">
-          <NuxtLink
-            v-for="tag in tags"
-            :key="tag.name"
-            :to="`/blog/tag/${encodeURIComponent(tag.name)}`"
-            :class="getTagClasses(tag.count)"
-            class="inline-flex items-center px-4 py-2 rounded-full transition-all duration-300 hover:scale-105"
-          >
-            <span class="mr-2">#{{ tag.name }}</span>
-            <span class="text-xs opacity-75">{{ tag.count }}</span>
-          </NuxtLink>
-        </div>
+        <UITagCloud 
+          :tags="tags" 
+          title=""
+          :limit="50" 
+          :show-count="true"
+          color-scheme="rainbow"
+        />
       </div>
 
       <!-- 標籤列表 -->
@@ -79,15 +72,18 @@
     </div>
 
     <!-- 空狀態 -->
-    <div v-else class="text-center py-12">
-      <div class="text-gray-500 dark:text-gray-400">
-        <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-        </svg>
-        <h3 class="text-xl font-semibold mb-2">目前沒有標籤</h3>
-        <p class="text-gray-600 dark:text-gray-400">請稍後再來查看</p>
-      </div>
-    </div>
+    <UIEmptyState 
+      v-else 
+      type="no-tag"
+      title="目前沒有標籤"
+      description="還沒有任何文章標籤，請稍後再來查看。"
+    >
+      <template #actions>
+        <NuxtLink to="/blog" class="btn-primary">
+          瀏覽所有文章
+        </NuxtLink>
+      </template>
+    </UIEmptyState>
 
     <!-- 返回連結 -->
     <div class="text-center mt-12">

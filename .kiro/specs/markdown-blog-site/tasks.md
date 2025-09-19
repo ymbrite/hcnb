@@ -58,7 +58,7 @@
   - 建立網站地圖和 RSS 訂閱功能
   - _Requirements: 1.4, 6.1, 6.2, 6.3_
 
-- [ ] 9. 完善 UI 和錯誤處理
+- [x] 9. 完善 UI 和錯誤處理
   - 建立 Pagination、TagCloud 組件
   - 實作 error.vue 錯誤頁面和載入狀態
   - 加入骨架屏和空狀態處理

@@ -85,17 +85,12 @@
               查看全部 →
             </NuxtLink>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <NuxtLink
-              v-for="tag in topTags"
-              :key="tag.name"
-              :to="`/blog/tag/${encodeURIComponent(tag.name)}`"
-              class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
-            >
-              #{{ tag.name }}
-              <span class="ml-1 text-xs opacity-75">{{ tag.count }}</span>
-            </NuxtLink>
-          </div>
+          <UITagCloud 
+            :tags="topTags" 
+            :limit="8" 
+            :show-count="true"
+            color-scheme="default"
+          />
         </div>
       </div>
     </section>

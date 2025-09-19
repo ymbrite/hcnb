@@ -121,16 +121,39 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       routes: [],
+      crawlLinks: true,
+      failOnError: false,
     },
     routeRules: {
+      // 首頁 - 高優先級，經常更新
+      '/': { prerender: true, headers: { 'cache-control': 's-maxage=3600' } },
+
+      // 部落格相關頁面
+      '/blog': { prerender: true, headers: { 'cache-control': 's-maxage=3600' } },
+      '/blog/category': { prerender: true, headers: { 'cache-control': 's-maxage=7200' } },
+      '/blog/tag': { prerender: true, headers: { 'cache-control': 's-maxage=7200' } },
+      '/search': { prerender: true, headers: { 'cache-control': 's-maxage=3600' } },
+
+      // 文章頁面 - 長期快取
+      '/blog/**': { prerender: true, headers: { 'cache-control': 's-maxage=86400' } },
+
+      // API 路由
+      '/api/**': { headers: { 'cache-control': 's-maxage=3600' } },
+
+      // 網站地圖和 RSS
       '/sitemap.xml': {
         proxy: '/api/sitemap.xml',
-        headers: { 'Content-Type': 'application/xml' },
+        headers: { 'Content-Type': 'application/xml', 'cache-control': 's-maxage=3600' },
       },
       '/rss.xml': {
         proxy: '/api/rss.xml',
-        headers: { 'Content-Type': 'application/rss+xml' },
+        headers: { 'Content-Type': 'application/rss+xml', 'cache-control': 's-maxage=3600' },
       },
     },
+  },
+
+  // 實驗性功能
+  experimental: {
+    payloadExtraction: false,
   },
 })
