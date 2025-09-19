@@ -5,7 +5,7 @@ publishedAt: "2024-01-15"
 category: "公告"
 tags: ["歡迎", "Nuxt", "部落格"]
 author: "部落格作者"
-image: "/images/hello-world.jpg"
+# image: "/images/hello-world.jpg"  # 暫時註解掉不存在的圖片
 draft: false
 featured: true
 ---
@@ -35,7 +35,7 @@ greet('World');
 
 ## 圖片支援
 
-![部落格示意圖](/images/blog-demo.jpg)
+<!-- ![部落格示意圖](/images/blog-demo.jpg) 暫時註解掉不存在的圖片 -->
 
 這個部落格支援完整的 Markdown 語法，包括表格、清單、連結等等。
 
