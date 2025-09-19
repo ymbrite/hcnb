@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   // 模組配置
-  modules: ['@nuxt/content', '@nuxt/image', '@nuxtjs/tailwindcss'],
+  modules: ['@nuxt/content', '@nuxt/image', '@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
 
   // 內容配置
   content: {
@@ -34,6 +34,18 @@ export default defineNuxtConfig({
   // TypeScript 配置 - 暫時關閉 typeCheck 避免 vue-tsc 問題
   typescript: {
     typeCheck: false,
+  },
+
+  // 顏色模式配置
+  colorMode: {
+    preference: 'system', // 預設使用系統設定
+    fallback: 'light', // 如果無法偵測系統設定，使用淺色模式
+    hid: 'nuxt-color-mode-script',
+    globalName: '__NUXT_COLOR_MODE__',
+    componentName: 'ColorScheme',
+    classPrefix: '',
+    classSuffix: '',
+    storageKey: 'nuxt-color-mode',
   },
 
   // CSS 配置

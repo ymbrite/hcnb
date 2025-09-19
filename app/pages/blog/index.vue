@@ -32,6 +32,11 @@
 </template>
 
 <script setup lang="ts">
+// 使用 blog 佈局
+definePageMeta({
+  layout: 'blog'
+})
+
 // 查詢所有部落格文章 - 使用 refresh 來處理異步
 const { data, refresh } = await useAsyncData('blog-articles', () =>
   queryContent('blog')
