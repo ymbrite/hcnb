@@ -44,7 +44,7 @@
   - 建立分類和標籤頁面 (category/[category].vue, tag/[tag].vue)
   - _Requirements: 2.1, 2.2, 3.1, 3.4, 4.1, 4.2, 4.3_
 
-- [ ] 7. 實作搜尋功能
+- [x] 7. 實作搜尋功能
 
   - 建立搜尋 API (server/api/search.ts)
   - 建立 SearchBox 組件 (即時搜尋)

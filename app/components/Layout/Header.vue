@@ -62,6 +62,11 @@
 
         <!-- Right side actions -->
         <div class="flex items-center space-x-4">
+          <!-- Search Box (Desktop) -->
+          <div class="hidden lg:block w-64">
+            <UISearchBox />
+          </div>
+          
           <!-- Theme Toggle -->
           <UIThemeToggle />
           
@@ -81,6 +86,11 @@
 
       <!-- Mobile Navigation -->
       <div v-show="isMobileMenuOpen" class="md:hidden py-4 border-t border-gray-200 dark:border-gray-700">
+        <!-- Mobile Search -->
+        <div class="mb-4 lg:hidden">
+          <UISearchBox />
+        </div>
+        
         <nav class="flex flex-col space-y-2">
           <NuxtLink 
             to="/" 
