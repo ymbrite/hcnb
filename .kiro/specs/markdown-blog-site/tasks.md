@@ -14,7 +14,7 @@
   - 建立範例 Markdown 檔案測試內容解析
   - _Requirements: 1.1, 1.2, 7.4_
 
-- [ ] 3. 建立核心 Composables
+- [x] 3. 建立核心 Composables
 
   - 實作 useBlog composable (文章查詢、分頁、篩選)
   - 實作 useSEO composable (動態 meta 標籤、結構化資料)
