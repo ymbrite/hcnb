@@ -4,7 +4,7 @@ description: "這是一篇文章"
 publishedAt: "2026-03-15T09:54:00"
 tags: ["misc1", "misc2", "misc3"]
 author: "ym"
-# image: "/images/hello-world.jpg"  # 暫時註解掉不存在的圖片
+image: "/images/green.png" 
 draft: false
 featured: false
 ---
